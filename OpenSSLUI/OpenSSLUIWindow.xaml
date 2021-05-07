@@ -1,0 +1,212 @@
+﻿<Window x:Class="OpenSSLUI.OpenSSLUIWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="OpenSSLUI" Height="374" Width="809" ToolTip="OpenSSLUI" ResizeMode="CanMinimize" Background="AliceBlue" BorderBrush="Black" Foreground="Coral">
+    <TabControl Height="326" Name="tabControl1" Width="779">
+        <TabItem Header="Create RSA Key" Name="createKeyTab">
+            <Grid>
+                <TextBox Height="26" Margin="190,33,0,0" Name="_CaKeyNameTF" VerticalAlignment="Top" ToolTip="please type a name for the CA key" FontSize="12" HorizontalAlignment="Left" Width="193" />
+                <Label Height="31" HorizontalAlignment="Left" Margin="26,33,0,0" Name="_CaKeyName" VerticalAlignment="Top" Width="89" Focusable="False">Key Name</Label>
+                <Label Height="28" Margin="26,67,0,0" Name="_LocationLbl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89">Save Location</Label>
+                <Label HorizontalAlignment="Left" Margin="26,100,0,0" Name="_PEMPassword" Width="122" Height="30.04" VerticalAlignment="Top">RSA Key Password</Label>
+                <Label Margin="26,137,0,129" Name="_RetypePEMPassword" HorizontalAlignment="Left" Width="150">Retype RSA Key Password</Label>
+                <Button Height="28" Margin="23,0,0,12.221" Name="_GenerateKeyBtn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="93" Click="_GenerateKeyBtn_Click">Generate Key</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="128.876,0,0,12.221" Name="_CreateCAKeyResetBtn" VerticalAlignment="Bottom" Width="76" Click="_CreateCAKeyResetBtn_Click">Reset</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="215.534,0,0,12.221" Name="_ExitBtn" VerticalAlignment="Bottom" Width="61" Click="_ExitBtn_Click">Exit</Button>
+                <PasswordBox Margin="189,102,0,0" Name="PasswordTF" FontSize="12" HorizontalAlignment="Left" Width="194" PasswordChanged="PasswordTF_PasswordChanged" Height="26.04" VerticalAlignment="Top" />
+                <PasswordBox Margin="189,138,0,130" Name="PasswordRetypeTF" FontSize="12" HorizontalAlignment="Left" Width="194" PasswordChanged="PasswordRetypeTF_PasswordChanged" />
+                <TextBox Height="26" Margin="189,67,0,0" Name="_KeyLocationTF" VerticalAlignment="Top" FontSize="12" IsEnabled="False" TextChanged="_KeyLocationTF_TextChanged" HorizontalAlignment="Left" Width="194" />
+                <Button Height="26" HorizontalAlignment="Right" Margin="0,67,363,0" Name="_KeyLocationTriggerBtn" VerticalAlignment="Top" Width="19" Click="_KeyLocationTriggerBtn_Click" Content="..."></Button>
+                <GroupBox Header="How To Generate Key" HorizontalAlignment="Right" Margin="0,16,21,26" Name="_HowToGenerateCAKey" Width="325">
+                    <TextBlock Height="216" Name="_HowToCreateCAKeyTblk" Width="290" TextWrapping="Wrap">                       
+                        When you create an RSA key for a CA, or other purpose, the command used is:<LineBreak/>
+                        "openssl genrsa -out out_key_file_name.key"<LineBreak/>
+                        If you do not select Bit Length, 2048 bit length is assumed to be the default bit length.<LineBreak/>                       
+                        <LineBreak/>
+                        If a password is provided the RSA key will be encrypted with AES128 cipher. If a password is not provided then the RSA key would be generated without any encrption.<LineBreak/>
+                        <LineBreak/>
+                        The generated RSA key will be in PEM format.<LineBreak/>
+                    </TextBlock>
+                </GroupBox>
+                <Label Height="28" HorizontalAlignment="Left" Margin="26,0,0,92" Name="_BitLengthLbl" VerticalAlignment="Bottom" Width="130">Bit Length</Label>
+                <ComboBox Height="28" HorizontalAlignment="Left" Margin="190,0,0,92" Name="_BitLengthCmb" VerticalAlignment="Bottom" Width="77" SelectedIndex="2">
+                    <ComboBoxItem ContentStringFormat="512">512</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="1024">1024</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="2048">2048</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </TabItem>
+        <TabItem Name="_CreateCACert" Header="Root CA Cert [Self Signed]">
+            <Grid>
+                <Label Height="28" Margin="16.665,24.22,0,0" Name="_CreateCACertKeyLocationLbl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="136.653">CA Key File</Label>
+                <TextBox Height="28" Margin="167.573,26.22,0,0" Name="_CreateCAKeyKeyLocationTB" VerticalAlignment="Top" HorizontalAlignment="Left" Width="181.281" IsEnabled="False" />
+                <Button Height="27.775" HorizontalAlignment="Left" Margin="355.52,26.445,0,0" Name="_CreateCACertKeyLocationTriggerBtn" VerticalAlignment="Top" Width="19.998" Click="_CreateCACertKeyLocationTriggerBtn_Click" Content="..."></Button>
+                <Label Height="28" Margin="16.665,65.549,0,0" Name="_CreateCACertCertLocationLbl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="136.653">Save Location</Label>
+                <TextBox Height="28" HorizontalAlignment="Left" Margin="167.573,67.549,0,0" Name="_CreateCACertLocationTF" VerticalAlignment="Top" Width="181.281" IsEnabled="False" TextChanged="_CreateCACertLocationTF_TextChanged" />
+                <Button Height="28" Margin="355.52,65.549,0,0" Name="_CreateCACertLocationTriggerBtn" VerticalAlignment="Top" HorizontalAlignment="Left" Width="19.998" Click="_CreateCACertLocationTriggerBtn_Click" Content="..."></Button>
+                <!--
+                <Label Margin="16.665,0,0,46.662" Name="_CreateCACertAlgorithmLbl" HorizontalAlignment="Left" Width="78.881" Height="28.511" VerticalAlignment="Bottom">Algorithm</Label>
+                
+                
+                <ComboBox HorizontalAlignment="Left" Margin="167.573,0,0,44.44" Name="_CreateCACertAlgorithmCmb" Width="85.547" Height="28" VerticalAlignment="Bottom">
+                    <ComboBoxItem ContentStringFormat="">x509</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">RSA</ComboBoxItem>
+                </ComboBox> -->
+                <Label HorizontalAlignment="Left" Margin="16.665,0,0,81.103" Name="_CreateCACertDurationLbl" Width="148.874" Height="35.552" VerticalAlignment="Bottom">Certificate Validity Period</Label>
+                <ComboBox Margin="168,0,0,88" Name="_CreateCACertDaysCmb" HorizontalAlignment="Left" Width="87" Height="28" VerticalAlignment="Bottom" SelectedIndex="6">
+                    <ComboBoxItem ContentStringFormat="">100</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">200</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">365</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">400</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">700</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">1000</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="">1200</ComboBoxItem>
+                </ComboBox>
+                <GroupBox Header="How To Generate CA certificate" HorizontalAlignment="Right" Margin="0,12,10,18" Name="groupBox1" Width="354">
+                    <TextBlock TextWrapping="WrapWithOverflow" Height="236.643" Name="_CreateCACertHowTo" Margin="10,3,-2,2">
+                        This command will crate a Public certificate ( Self Signed ). Before creating a certificate you must have a RSA public and private key. The command that will be invoked is:<LineBreak/>
+                        "req -passin pass: [password] -config [configfile] -new -x509 -days [period] -key [key file] -out [certificate filename]"<LineBreak/>
+                        <LineBreak/>
+                        Password is optional. If you do not key in password for a key which has a password you will be prompted to enter the password. If you key in a password for a key which does not have a password the behaviour of this program is unpredictable.<LineBreak/> 
+                        <LineBreak/>
+                        This can be used as a root CA certificate as well.<LineBreak/>
+                    </TextBlock>
+                </GroupBox>
+                <Button Height="28" HorizontalAlignment="Left" Margin="16.665,0,0,8.888" Name="_CreateCACertGenerateCertBtn" VerticalAlignment="Bottom" Width="112.211" Click="_CreateCACertGenerateCertBtn_Click">Generate Certificate</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="135.542,0,0,8.888" Name="_CreateCACertResetBtn" VerticalAlignment="Bottom" Width="72.215" Click="_CreateCACertResetBtn_Click">Reset</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="215.534,0,0,8.888" Name="_CreateCACertExitBtn" VerticalAlignment="Bottom" Width="55.55" Click="_CreateCACertExitBtn_Click">Exit</Button>
+                <Label Margin="16.665,139.986,0,125.543" Name="_CreateCACertCAPassword" HorizontalAlignment="Left" Width="120.176">RSA Key Password</Label>
+                <PasswordBox Margin="167.573,140.497,0,125.543" Name="_CreateCACertCAKeyPasswordTF" HorizontalAlignment="Left" Width="181.281" Height="28" />
+                <Label Height="28" HorizontalAlignment="Left" Margin="16.841,102.212,0,0" Name="_CreateCACertName" VerticalAlignment="Top" Width="148.698">Certificate Name</Label>
+                <TextBox HorizontalAlignment="Left" Margin="167.573,102.212,0,0" Name="_CreateCACertNameTF" Width="181.281" Height="28" VerticalAlignment="Top" />
+            </Grid>
+        </TabItem>
+        <TabItem Name="_SignCSR" Header="Sign CSR">
+            <Grid>
+                <TextBox Height="28" IsEnabled="False" Margin="181,12.221,326,0" VerticalAlignment="Top" Name="_CSRLocationTF"></TextBox>
+                <Button Height="28" HorizontalAlignment="Right" Margin="0,12.221,304,0" Name="_CSRLocationTriggerBtn" VerticalAlignment="Top" Width="19" Click="_CSRLocationTriggerBtn_Click" Content="..."></Button>
+                <Label Height="28" Margin="9,12.221,0,0" Name="_CSRLocationLbl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="162">Select CSR</Label>
+                <TextBox Height="28" IsEnabled="False" Margin="181,51.106,326,0" Name="_SelectCAKeyLocationTF" VerticalAlignment="Top" />
+                <Button Height="28" HorizontalAlignment="Right" Margin="0,51.106,304,0" Name="_SelectCAKeyTriggerBtn" VerticalAlignment="Top" Width="19" Click="_SelectCAKeyTriggerBtn_Click" Content="..."></Button>
+                <Label Height="28" Margin="9,51.106,0,0" Name="_SelectCAKeyLocationLbl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="162">Select CA Key</Label>
+                <Label Margin="9,133.32,0,132.209" Name="_SignedCSRCertNameLbl" HorizontalAlignment="Left" Width="171">Singned Certificat Name</Label>
+                <TextBox Margin="181,133.32,0,132.209" Name="_SignedCSRCertNameTF" HorizontalAlignment="Left" Width="125" />
+                <Label Height="28" Margin="286.638,0,0,56.661" Name="_ValidityPeriodLbl" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="89.765">Validity Period</Label>
+                <ComboBox Height="28" Margin="379.265,0,304,57.772" Name="_ValidityPeriodCmb" VerticalAlignment="Bottom" SelectedIndex="3">
+                    <ComboBoxItem ContentStringFormat="100">100</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="200">200</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="365">365</ComboBoxItem>
+                    <ComboBoxItem ContentStringFormat="730">730</ComboBoxItem>
+                </ComboBox>
+                <Label Height="28" Margin="9,0,0,94" Name="_SignedCertLocationLbl" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="162">Save Location</Label>
+                <TextBox Height="28" Margin="181,0,326,94" Name="_SignedCertLocationTF" VerticalAlignment="Bottom" IsEnabled="False" />
+                <Button Height="28" HorizontalAlignment="Right" Margin="0,0,304,94" Name="_SignedCertLocationTriggerBtn" VerticalAlignment="Bottom" Width="19" Click="_SignedCertLocationTriggerBtn_Click" Content="..."></Button>
+                <GroupBox Header="How To sign a CSR using CA" HorizontalAlignment="Right" Margin="0,12.221,9,9.999" Name="_HowToGb" Width="288">
+                    <TextBlock Height="237" Name="_HowToTblk" Width="272" TextWrapping="Wrap">
+                        
+                        You can sign a Certificate Signing Request(CSR) using your own Root CA [Self Signed]. The command used here is:<LineBreak/> 
+                        <LineBreak/>
+                         " ca -passin pass: [Password] -config [config file] -in [CSR file name]  -cert [CA Certificate] -keyfile [CA Key] -out [Singned CSR certificate Location] -days [period] -batch"<LineBreak/>
+                        <LineBreak/>
+                        Password is optional. If you do not key in password field for an RSA key which has a password you will be prompted to key in the password. 
+                        If you key in password field for a RSA key which does not have a password the behaviour of this program is unpredictable
+                    </TextBlock>
+                </GroupBox>
+                <Button Height="28" HorizontalAlignment="Left" Margin="9,0,0,9.999" Name="_SignBtn" VerticalAlignment="Bottom" Width="80" Click="_SignBtn_Click">Sign</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="96,0,0,9.999" Name="_ResetCSRBtn" VerticalAlignment="Bottom" Width="75" Click="_ResetCSRBtn_Click">Reset</Button>
+                <Button Height="28" Margin="181,0,0,9.999" Name="_ExitCSRBtn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" Click="_ExitCSRBtn_Click">Exit</Button>
+                <Label Height="28" HorizontalAlignment="Left" Margin="9,92.213,0,0" Name="_SignCSRCACertLocation" VerticalAlignment="Top" Width="171">CA Certificate Location</Label>
+                <TextBox Height="28" Margin="181,91.102,326,0" Name="_SignCSRCertificateLocationTF" VerticalAlignment="Top" IsEnabled="False" />
+                <Button Height="28" HorizontalAlignment="Right" Margin="0,91.102,304,0" Name="_SignCSRCACertLocationTriggerBtn" VerticalAlignment="Top" Width="19.301" Click="_SignCSRCACertLocationTriggerBtn_Click" Content="..."></Button>
+                <Label Height="28" Margin="0,0,655.639,57.772" Name="_SignCSRCACertPasswordLbl" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="104.361">CA Cert Password</Label>
+                <PasswordBox Height="28" Margin="181,0,0,57.772" Name="_SignCSRCACertPasswordTF" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="94.528" />
+                <Label Margin="314,133,0,131" Name="_SingCSRCertTypeLbl" Width="60" HorizontalAlignment="Left">Usage</Label>
+                <ComboBox Margin="379.265,133,303.735,131" Name="_SignCSRCertTypeCmb">
+                    <ComboBoxItem>Client</ComboBoxItem>
+                    <ComboBoxItem>Server</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </TabItem>
+        <TabItem Name="_CreateCSR" Header="Create CSR">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="275*"/>
+                    <ColumnDefinition Width="494*"/>
+                </Grid.ColumnDefinitions>
+                <Label Height="26" HorizontalAlignment="Left" Margin="13,31,0,0" Name="_CreateCSRCSRNameLbl" VerticalAlignment="Top" Width="120">CSR Name</Label>
+                <TextBox Height="26" HorizontalAlignment="Left" Margin="159,31,0,0" Name="_CreateCSRCSRNameTF" VerticalAlignment="Top" Width="169" Grid.ColumnSpan="2" />
+                <Label Height="26" HorizontalAlignment="Left" Margin="13,64,0,0" Name="_CreateCSRCSRLocationLbl" VerticalAlignment="Top" Width="120">Save Location</Label>
+                <TextBox Margin="159,64,0,0" Name="_CreateCSRCSRLocationTF" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="199" TextChanged="_CreateCSRCSRLocationTF_TextChanged" IsEnabled="False" Grid.ColumnSpan="2" />
+                <Button Height="26" HorizontalAlignment="Left" Margin="86,64,0,0" Name="_CreateCSRCSRLocationTriggerBtn" VerticalAlignment="Top" Width="20" Click="_CreateCSRCSRLocationTriggerBtn_Click" Content="..." Grid.Column="1"></Button>
+                <Label HorizontalAlignment="Left" Margin="13,99,0,0" Name="_CreateCSRPrivateKeyLocationLbl" Width="144" Height="26" VerticalAlignment="Top">RSA Key File</Label>
+                <TextBox HorizontalAlignment="Left" Margin="159,100,0,0" Name="_CreateCSRPrivateKeyLocationTF" Width="199" Height="26" VerticalAlignment="Top" TextChanged="_CreateCSRPrivateKeyLocationTF_TextChanged" IsEnabled="False" Grid.ColumnSpan="2" />
+                <Button Height="26" Margin="86,100,0,0" Name="_CreateCSRPrivateKeyLocationTriggerBtn" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Click="_CreateCSRPrivateKeyLocationTriggerBtn_Click" Content="..." Grid.Column="1"></Button>
+                <GroupBox Header="How to generate a CSR" HorizontalAlignment="Right" Margin="0,19,21,15" Name="_CreateCSRGroupBox" Width="344" Grid.Column="1">
+                    <TextBlock Height="219" Name="_CreateCSRHowToTB" Width="324" TextWrapping="Wrap">
+                        You can create a CSR (Certificate Signing Request) using this facility. The command that would be used in creating CSR is:<LineBreak/>                        
+                        <LineBreak/>
+                        "req -passin pass: [Password]-new -key [CSR PrivateKey] -out [CSR file name] -config [file name]"<LineBreak/>
+                        <LineBreak/>
+                        Password is optional. If you do not key in password for a RSA key which has a password you will be prompted to enter the password. 
+                        If you key in a password for a key which does not have a password the behaviour of this program is unpredictable.
+                    </TextBlock>
+                </GroupBox>
+                <Button Height="28" HorizontalAlignment="Left" Margin="13,0,0,34" Name="_CreateCSRGenerateBtn" VerticalAlignment="Bottom" Width="101" Click="_CreateCSRGenerateBtn_Click">Generate CSR</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="121,0,0,34" Name="_CreateCSRResetBtn" VerticalAlignment="Bottom" Width="75" Click="_CreateCSRResetBtn_Click">Reset</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="202,0,0,34" Name="_CreateCSRExitBtn" VerticalAlignment="Bottom" Width="75" Click="_CreateCSRExitBtn_Click" Grid.ColumnSpan="2">Exit</Button>
+                <Label HorizontalAlignment="Left" Margin="13,135,0,131" Name="_CreateCSRCSRPasswordLbl" Width="131">Private Key Password</Label>
+                <PasswordBox HorizontalAlignment="Right" Margin="0,135,447,133" Name="_CreateCSRCSRPasswordTF" Width="163" Grid.ColumnSpan="2" />
+            </Grid>
+        </TabItem>
+        <TabItem Name="_Util" Header="Util">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="425*"/>
+                    <ColumnDefinition Width="344*"/>
+                </Grid.ColumnDefinitions>
+                <Label Height="28" HorizontalAlignment="Left" Margin="11,14,0,0" Name="_UtilCreatePKCS12ClientCertificateLocationLbl" VerticalAlignment="Top" Width="142">Client Certificate Location</Label>
+                <GroupBox Header="Create PKCS12" Name="_UtilCreatePKCS12GB" HorizontalAlignment="Left" Width="343" Margin="0,-2,0,4"></GroupBox>
+                <TextBox Height="28" HorizontalAlignment="Right" Margin="0,14,122,0" Name="_UtilCreatePKCS12ClientCertificateLocationTb" VerticalAlignment="Top" Width="146" IsEnabled="False" />
+                <Button Height="28" Margin="308,14,0,0" Name="_UtilCreatePKCS12ClientCertificateLocationTriggerBtn" VerticalAlignment="Top" HorizontalAlignment="Left" Width="19" Click="_UtilCreatePKCS12ClientCertificateLocationTriggerBtn_Click" Content="..."></Button>
+                <Label HorizontalAlignment="Left" Margin="11,56,0,0" Name="_UtilCreatePKCS12ClientPrivateKeyLocationLbl" Width="142" Height="28" VerticalAlignment="Top">Client Private Key Location</Label>
+                <TextBox Margin="157,58,0,0" Name="_UtilCreatePKCS12ClientPrivateKeyLocationTb" HorizontalAlignment="Left" Width="146" IsEnabled="False" Height="28" VerticalAlignment="Top" />
+                <Button Margin="308,58,0,0" Name="_UtilCreatePKCS12ClientPrivateKeyLocationTriggerBtn" HorizontalAlignment="Left" Width="19" Click="_UtilCreatePKCS12ClientPrivateKeyLocationTriggerBtn_Click" Height="28" VerticalAlignment="Top" Content="..."></Button>
+                <Label HorizontalAlignment="Left" Margin="11,98,0,0" Name="_UtilCreatePKCS12SaveInLbl" Width="142" Height="28" VerticalAlignment="Top">Save PKCS12 In</Label>
+                <TextBox HorizontalAlignment="Left" Margin="157,97,0,0" Name="_UtilCreatePKCS12SaveInTb" Width="146" IsEnabled="False" Height="29" VerticalAlignment="Top" />
+                <Button Margin="308,98,0,0" Name="_UtilCreatePKCS12SaveInTriggerBtn" HorizontalAlignment="Left" Width="19" Click="_UtilCreatePKCS12SaveInTriggerBtn_Click" Height="28" VerticalAlignment="Top" Content="..."></Button>
+                <Label HorizontalAlignment="Left" Margin="11,134,0,131" Name="_UtilCreatePKCS12FileNameLbl" Width="120">PKCS12 File Name</Label>
+                <TextBox HorizontalAlignment="Left" Margin="157,134,0,131" Name="_UtilCreatePKCS12FileNameTb" Width="146" />
+                <Button Height="28" HorizontalAlignment="Left" Margin="11,0,0,10" Name="_UtilCreatePKCS12ExportBtn" VerticalAlignment="Bottom" Width="75" Click="_UtilCreatePKCS12ExportBtn_Click">Export</Button>
+                <Button Height="28" HorizontalAlignment="Left" Margin="92,0,0,10" Name="_UtilCreatePKCS12ResetBtn" VerticalAlignment="Bottom" Width="73" Click="_UtilCreatePKCS12ResetBtn_Click">Reset</Button>
+                <Label Height="28" HorizontalAlignment="Left" Margin="11,0,0,92" Name="_UtilCreatePKCS12ClientKeyPassLbl" VerticalAlignment="Bottom" Width="142">Client Key Password</Label>
+                <PasswordBox Height="28" HorizontalAlignment="Left" Margin="157,0,0,92" Name="_UtilCreatePKCS12ClientKeyPasswordTb" VerticalAlignment="Bottom" Width="146" />
+                <Label Height="28" Margin="11,0,0,54" Name="_UtilCreatePKCS12pkcs12PasswordLbl" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120">PKCS12 Password</Label>
+                <PasswordBox Height="28" Margin="157,0,0,54" Name="_UtilCreatePKCS12PasswordTb" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="146" />
+                <Button Name="_UtilCreatePKCS12ExitBtn" Width="75" HorizontalAlignment="Left" Margin="172,0,0,10" Height="28" VerticalAlignment="Bottom" Click="_UtilCreatePKCS12ExitBtn_Click">Exit</Button>
+            </Grid>
+        </TabItem>
+        <TabItem Name="_HelpTab" Header="Help">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26.664*" />
+                    <ColumnDefinition Width="231.088*" />
+                    <ColumnDefinition Width="511.248*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="_HelpTextBox" TextWrapping="Wrap" Grid.ColumnSpan="3">
+                    
+                    <LineBreak/>
+                    This software is available as a free utility. 
+                    This utility is making use of openssl binaries for the generation of certificates, CSR, RSA keys etc.
+                    <LineBreak/>
+                    please email your valuable suggestions, improvements, bugs to following email address: <LineBreak/>
+                    Email Address for more infomation: <Italic>liyanaarachchiranil@gmail.com</Italic><LineBreak/>
+                    <LineBreak/>
+                    You may download this software from http://www.sourceforge.net<LineBreak/>
+                    <LineBreak/>
+                    Both binaries and source are available for free use.<LineBreak/>
+                    <LineBreak/>
+                </TextBlock>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

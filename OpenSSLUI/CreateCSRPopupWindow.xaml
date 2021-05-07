@@ -1,0 +1,23 @@
+﻿<Window x:Class="OpenSSLUI.CreateCSRPopupWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Enter Certificate Infomation" Height="369" Width="452" ResizeMode="NoResize">
+    <Grid>
+        <Label Height="28" Margin="10,25,212,0" Name="_PopUpCreateCSRCountryNameLbl" VerticalAlignment="Top">Country name (2 letter code)</Label>
+        <TextBox Height="26" Margin="0,25,167,0" Name="_PopUpCreateCSRCounrtyNameTF" VerticalAlignment="Top" HorizontalAlignment="Right" Width="34" MaxLength="2" />
+        <Label Height="28" Margin="10,59,212,0" Name="_PopUpCreateCSRStateLbl" VerticalAlignment="Top">Full state or province</Label>
+        <TextBox Height="26" Margin="0,61,51,0" Name="_PopUpCreateCSRStateTF" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" />
+        <Label Height="28" Margin="10,96,212,0" Name="_PopUpCreateCSRLocationLbl" VerticalAlignment="Top">Location (city)</Label>
+        <TextBox Height="26" HorizontalAlignment="Right" Margin="0,96,51,0" Name="_PopUpCreateCSRLocationTF" VerticalAlignment="Top" Width="150" />
+        <Label Height="28" Margin="10,129,212,0" Name="_PopUpCreateCSROrgNameLbl" VerticalAlignment="Top">Organization Name (company)</Label>
+        <TextBox HorizontalAlignment="Right" Margin="0,129,18,0" Name="_PopUpCreateCSROrgNameTF" Width="183" Height="26" VerticalAlignment="Top" />
+        <Label Margin="10,162,212,141" Name="_PopUpCreateCSROrgUnitLbl">Organizational unit</Label>
+        <TextBox HorizontalAlignment="Right" Margin="0,162,51,141" Name="_PopUpCreateCSROrgUnitTF" Width="150" Height="26" />
+        <Label Height="28" Margin="10,0,212,106" Name="_PopUpCreateCSRCommonNameLbl" VerticalAlignment="Bottom">Common name (hostname, email)</Label>
+        <TextBox Height="26" HorizontalAlignment="Right" Margin="0,0,51,107" Name="_PopUpCreateCSRCommonNameTF" VerticalAlignment="Bottom" Width="150" />
+        <Label Height="28" Margin="10,0,212,73" Name="_PopUpCreateCSREmailLbl" VerticalAlignment="Bottom">Email address</Label>
+        <TextBox Height="26" HorizontalAlignment="Right" Margin="0,0,18,73" Name="_PopUpCreateCSREmailTF" VerticalAlignment="Bottom" Width="183" />
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,126,20" Name="_PopUpCreateCSROKBtn" VerticalAlignment="Bottom" Width="75" Click="_PopUpCreateCSROKBtn_Click">OK</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,41,20" Name="_PopUpCreateCSRCancelBtn" VerticalAlignment="Bottom" Width="75" Click="_PopUpCreateCSRCancelBtn_Click">Cancel</Button>
+    </Grid>
+</Window>
