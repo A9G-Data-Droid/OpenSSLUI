@@ -2,18 +2,18 @@
 
 namespace OpenSSLUI.codebase
 {
-    static class OpenSSLENVVarProvider
+    internal static class OpenSSLENVVarProvider
     {
-        const string OPENSSL_UI_PATH = "OPENSSL_UI_PATH";
+        private const string OPENSSL_UI_PATH = "OPENSSL_UI_PATH";
 
-        public static string GetCurrentDirPath() 
+        public static string GetCurrentDirPath()
         {
             // Get the path to the running process
             string _CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             return _CurrentDirectory;
         }
 
-        public static string GetOPENSSLUIPATHEnvVar() 
+        public static string GetOPENSSLUIPATHEnvVar()
         {
             string _OpenSSLUIPath = Environment.GetEnvironmentVariable(OPENSSL_UI_PATH);
             if (string.IsNullOrEmpty(_OpenSSLUIPath))
@@ -26,7 +26,7 @@ namespace OpenSSLUI.codebase
         }
 
         public static void SetOPENSSLUIPATHEnvVar(string newPath)
-        {           
+        {
             if (!string.IsNullOrEmpty(newPath))
             {
                 Environment.SetEnvironmentVariable(OPENSSL_UI_PATH, newPath);

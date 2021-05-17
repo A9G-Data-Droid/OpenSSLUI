@@ -51,20 +51,16 @@ namespace OpenSSLUI
         private void KeyLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
             _SELECTED_FOLDER_LOCATION = string.Empty;
-            FolderBrowserDialog _FodlerBrowserDialogue = new FolderBrowserDialog
-            {
-                SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using FolderBrowserDialog _FodlerBrowserDialogue = new();
+            _FodlerBrowserDialogue.SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath();
             _ = _FodlerBrowserDialogue.ShowDialog();
             _SELECTED_FOLDER_LOCATION = _FodlerBrowserDialogue.SelectedPath;
             _KeyLocationTF.Text = _SELECTED_FOLDER_LOCATION;
-            _FodlerBrowserDialogue.Dispose();
         }
 
         private void GenerateKeyBtn_Click(object sender, RoutedEventArgs e)
         {
-            string COMMAND_GENRSA = "genrsa"; 
+            string COMMAND_GENRSA = "genrsa";
             bool status = ValidateCreateCAKey();
             if (status)
             {
@@ -109,13 +105,13 @@ namespace OpenSSLUI
                         }
 
                         // Start an OpenSSL process with descriptive error if not found
-                        TryOpenSSL(_OpenSSLExecutableFullPath, _InvocationParameters);                 
+                        TryOpenSSL(_OpenSSLExecutableFullPath, _InvocationParameters);
                     }
                 }
             }
         }
 
-        private void TryOpenSSL(string _OpenSSLExecutableFullPath, string _InvocationParameters)
+        private static void TryOpenSSL(string _OpenSSLExecutableFullPath, string _InvocationParameters)
         {
             try
             {
@@ -132,11 +128,8 @@ namespace OpenSSLUI
         private void CSRLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
             _SELECTED_CSR_FOLDER_LOCATION = string.Empty;
-            OpenFileDialog _FileDialogue = new OpenFileDialog
-            {
-                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using OpenFileDialog _FileDialogue = new();          
+            _FileDialogue.InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath();
             _ = _FileDialogue.ShowDialog();
             string _FileName = _FileDialogue.FileName;
             if (!string.IsNullOrEmpty(_FileName))
@@ -144,18 +137,13 @@ namespace OpenSSLUI
                 _SELECTED_CSR_FOLDER_LOCATION = _FileName;
                 _CSRLocationTF.Text = _SELECTED_CSR_FOLDER_LOCATION;
             }
-
-            _FileDialogue.Dispose();
         }
 
         private void SelectCAKeyTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
             _SELECTED_CA_KEY_FOLDER_LOCATION = string.Empty;
-            OpenFileDialog _CAFileDialogue = new OpenFileDialog
-            {
-                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using OpenFileDialog _CAFileDialogue = new();
+            _CAFileDialogue.InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath();
             _ = _CAFileDialogue.ShowDialog();
             string _CAKeyFileName = _CAFileDialogue.FileName;
             if (!string.IsNullOrEmpty(_CAKeyFileName))
@@ -163,14 +151,12 @@ namespace OpenSSLUI
                 _SELECTED_CA_KEY_FOLDER_LOCATION = _CAKeyFileName;
                 _SelectCAKeyLocationTF.Text = _SELECTED_CA_KEY_FOLDER_LOCATION;
             }
-
-            _CAFileDialogue.Dispose();
         }
 
-        private bool ValidateCreateCAKey() 
+        private bool ValidateCreateCAKey()
         {
 
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             {
                 { "Key Name", _CaKeyNameTF },
                 { "Save Location ", _KeyLocationTF }
@@ -185,7 +171,7 @@ namespace OpenSSLUI
             }
 
             bool _Status = OpenSSLFieldValidator.ValidateTextFields(_FieldList);
-            if (!_Status) 
+            if (!_Status)
             {
                 ArrayList _ErrorList = OpenSSLFieldValidator.GetErrorList();
                 IEnumerator _IEnumerator = _ErrorList.GetEnumerator();
@@ -197,14 +183,14 @@ namespace OpenSSLUI
                         System.Windows.MessageBox.Show(_ErrorX, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-              
+
             }
 
-          OpenSSLFieldValidator.ClearErrorList();
-          return _Status;
+            OpenSSLFieldValidator.ClearErrorList();
+            return _Status;
         }
 
-        private bool MatchRetypePassword() 
+        private bool MatchRetypePassword()
         {
             string _Password = PasswordTF.Password;
             string _RetypePassword = PasswordRetypeTF.Password;
@@ -217,12 +203,12 @@ namespace OpenSSLUI
             return true;
         }
 
-        private bool PassPhraseProvided() 
+        private bool PassPhraseProvided()
         {
             bool passphraseProvided = true;
             string _Password = PasswordTF.Password;
             string _RetypePassword = PasswordRetypeTF.Password;
-            if (string.IsNullOrEmpty(_Password) && string.IsNullOrEmpty(_RetypePassword)) 
+            if (string.IsNullOrEmpty(_Password) && string.IsNullOrEmpty(_RetypePassword))
             {
                 passphraseProvided = false;
             }
@@ -233,15 +219,11 @@ namespace OpenSSLUI
         private void SignedCertLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
             _SELECTED_SIGNED_CSR_FOLDER_LOCATION = string.Empty;
-            FolderBrowserDialog _FodlerBrowserDialogue = new FolderBrowserDialog
-            {
-                SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using FolderBrowserDialog _FodlerBrowserDialogue = new();
+            _FodlerBrowserDialogue.SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath();
             _ = _FodlerBrowserDialogue.ShowDialog();
             _SELECTED_SIGNED_CSR_FOLDER_LOCATION = _FodlerBrowserDialogue.SelectedPath;
             _SignedCertLocationTF.Text = _SELECTED_SIGNED_CSR_FOLDER_LOCATION;
-            _FodlerBrowserDialogue.Dispose();
         }
 
         private void ExitCSRBtn_Click(object sender, RoutedEventArgs e)
@@ -259,7 +241,7 @@ namespace OpenSSLUI
         private void SignBtn_Click(object sender, RoutedEventArgs e)
         {
             bool csrvalidinput = ValidateSignCSR();
-            if (csrvalidinput) 
+            if (csrvalidinput)
             {
                 string _CsrFile = _CSRLocationTF.Text;
                 string _KeyFile = _SelectCAKeyLocationTF.Text;
@@ -268,23 +250,23 @@ namespace OpenSSLUI
                 string _SignedCertiLocation = _SignedCertLocationTF.Text;
                 string _ValidityPeriod = _ValidityPeriodCmb.Text;
                 string _CACertPassword = _SignCSRCACertPasswordTF.Password;
-                if (string.IsNullOrEmpty(_ValidityPeriod)) 
+                if (string.IsNullOrEmpty(_ValidityPeriod))
                 {
                     _ValidityPeriod = _DEFAULT_VALIDITY_PERIOD;
                 }
-               
+
                 // Sign the CSR
                 if (!File.Exists(_CsrFile))
                 {
                     System.Windows.MessageBox.Show("CSR File selected does not exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else 
+                else
                 {
                     if (!File.Exists(_KeyFile))
                     {
                         System.Windows.MessageBox.Show("Key File selected does not exists!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    else 
+                    else
                     {
                         // Sign the file
                         // openssl ca -config server.cfg -in client.csr -cert server.crt -keyfile server.key -out client.crt -days 1825
@@ -294,7 +276,7 @@ namespace OpenSSLUI
                         {
                             System.Windows.MessageBox.Show("OPENSSL_UI_PATH is not set , Please set the path before continue!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                        else 
+                        else
                         {
                             string _OpenSSLConfigFileName_Client = "openssl_cl.cnd";
                             string _OpenSSLConfigFileName_Server = "openssl.cnd";
@@ -316,10 +298,10 @@ namespace OpenSSLUI
                             {
                                 //RSA key has a password
                                 _InvocationParameters = " ca " + " -passin pass:" + _CACertPassword + " -config " + _OpenSSLConfigPath + " -in " + _CsrFile + " -cert " + _CACertificate +
-                                            " -keyfile " + _KeyFile + " -out " + Path.Combine(_SignedCertiLocation,_SignedCSRCertName) +
+                                            " -keyfile " + _KeyFile + " -out " + Path.Combine(_SignedCertiLocation, _SignedCSRCertName) +
                                             " -days " + _ValidityPeriod + " -batch";
                             }
-                            else 
+                            else
                             {
                                 //RSA key does not have a password
                                 _InvocationParameters = " ca  -config " + _OpenSSLConfigPath + " -in " + _CsrFile + " -cert " + _CACertificate +
@@ -328,7 +310,7 @@ namespace OpenSSLUI
                             }
 
                             //Before run this command, clear the openssl database file
-                            File.Delete(Path.Combine(_OpenSSLUIPATHEnvVar,"ca.db.index"));
+                            File.Delete(Path.Combine(_OpenSSLUIPATHEnvVar, "ca.db.index"));
                             FileStream _FS = File.Create(Path.Combine(_OpenSSLUIPATHEnvVar, "ca.db.index"));
                             _FS.Close();
 
@@ -345,13 +327,28 @@ namespace OpenSSLUI
         private bool ValidateSignCSR()
         {
 
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             {
-                { "CSR ", _CSRLocationTF },
-                { "CA Key location ", _SelectCAKeyLocationTF },
-                { "Signed CSR Name ", _SignedCSRCertNameTF },
-                { "CA Certificate Location ", _SignCSRCertificateLocationTF },
-                { "Signed CSR Location ", _SignedCertLocationTF }
+                {
+                    "CSR ",
+                    _CSRLocationTF
+                },
+                {
+                    "CA Key location ",
+                    _SelectCAKeyLocationTF
+                },
+                {
+                    "Signed CSR Name ",
+                    _SignedCSRCertNameTF
+                },
+                {
+                    "CA Certificate Location ",
+                    _SignCSRCertificateLocationTF
+                },
+                {
+                    "Signed CSR Location ",
+                    _SignedCertLocationTF
+                }
             };
 
             //_FieldList.Add("CA Cert Password ", _SignCSRCACertPasswordTF);
@@ -392,7 +389,7 @@ namespace OpenSSLUI
             {
 
                 //openssl req -config openssl.conf -new -x509 -days 1001 -key keys/ca.key -out certs/ca.cer
-                CreateCACertPopupWindow _CreateCACertPopuWindow = new CreateCACertPopupWindow();
+                CreateCACertPopupWindow _CreateCACertPopuWindow = new();
                 _CreateCACertPopuWindow.ShowDialog();
 
                 string _OpenSSLUIPATHEnvVar = OpenSSLENVVarProvider.GetOPENSSLUIPATHEnvVar();
@@ -421,7 +418,8 @@ namespace OpenSSLUI
                         if (string.IsNullOrEmpty(_CreateCACertDaysCmb.Text))
                         {
                             _ValidityPeriod = _DEFAULT_CA_VALIDITY_PERIOD;
-                        } else
+                        }
+                        else
                         {
                             _ValidityPeriod = _CreateCACertDaysCmb.Text;
                         }
@@ -435,7 +433,7 @@ namespace OpenSSLUI
                         //}
 
                         string _CreateCACertKeyLocation = _CreateCAKeyKeyLocationTB.Text;
-                        string _CreateCACertLocation = _CreateCACertLocationTF.Text+"\\"+_CreateCACertNameTF.Text;
+                        string _CreateCACertLocation = _CreateCACertLocationTF.Text + "\\" + _CreateCACertNameTF.Text;
                         string _InvocationParameters;
                         if (string.IsNullOrEmpty(_CreateCACertCAKeyPasswordTF.Password))
                         {
@@ -444,7 +442,7 @@ namespace OpenSSLUI
                                 + " -new  -" + _DEFAULT_CA_ALOGORITHM + " -days " + _ValidityPeriod + " -key "
                                 + _CreateCACertKeyLocation + " -out " + _CreateCACertLocation;
                         }
-                        else 
+                        else
                         {
                             // RSA key password is provided
                             _InvocationParameters = COMMAND_REQ + " -passin pass:" + _CAKeyPass + " -config " + _CreateCAConfigPath
@@ -469,39 +467,41 @@ namespace OpenSSLUI
 
         private void CreateCACertKeyLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog _CAFileDialogue = new OpenFileDialog
-            {
-                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using OpenFileDialog _CAFileDialogue = new();
+            _CAFileDialogue.InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath();            
             _ = _CAFileDialogue.ShowDialog();
             string _CAKeyFileName = _CAFileDialogue.FileName;
             if (!string.IsNullOrEmpty(_CAKeyFileName))
             {
                 _CreateCAKeyKeyLocationTB.Text = _CAKeyFileName;
             }
-            _CAFileDialogue.Dispose();
         }
 
         private void CreateCACertLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog _FodlerBrowserDialogue = new FolderBrowserDialog
-            {
-                SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath()
-            };
-
+            using FolderBrowserDialog _FodlerBrowserDialogue = new();
+            _FodlerBrowserDialogue.SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath();
             _ = _FodlerBrowserDialogue.ShowDialog();
             _CreateCACertLocationTF.Text = _FodlerBrowserDialogue.SelectedPath;
             _FodlerBrowserDialogue.Dispose();
         }
 
-        private bool ValidateCreateCACertificate() 
+        private bool ValidateCreateCACertificate()
         {
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             {
-                { "CA Key File ", _CreateCAKeyKeyLocationTB },
-                { "Save Location ", _CreateCACertLocationTF },
-                { "Certificate Name ", _CreateCACertNameTF }
+                {
+                    "CA Key File ",
+                    _CreateCAKeyKeyLocationTB
+                },
+                {
+                    "Save Location ",
+                    _CreateCACertLocationTF
+                },
+                {
+                    "Certificate Name ",
+                    _CreateCACertNameTF
+                }
             };
 
             if (!string.IsNullOrEmpty(_CreateCACertCAKeyPasswordTF.Password))
@@ -543,7 +543,7 @@ namespace OpenSSLUI
 
         private void SignCSRCACertLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog _CAFileDialogue = new OpenFileDialog
+            OpenFileDialog _CAFileDialogue = new()
             {
                 InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
             };
@@ -578,7 +578,10 @@ namespace OpenSSLUI
 
         private void CreateCSRCSRLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog _FodlerBrowserDialogue = new FolderBrowserDialog { SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath() };
+            FolderBrowserDialog _FodlerBrowserDialogue = new()
+            {
+                SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath()
+            };
             _ = _FodlerBrowserDialogue.ShowDialog();
             _CreateCSRCSRLocationTF.Text = _FodlerBrowserDialogue.SelectedPath;
             _FodlerBrowserDialogue.Dispose();
@@ -586,7 +589,10 @@ namespace OpenSSLUI
 
         private void CreateCSRPrivateKeyLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog _CreateCSRFileDialogue = new OpenFileDialog { InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath() };
+            OpenFileDialog _CreateCSRFileDialogue = new()
+            {
+                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
+            };
             _ = _CreateCSRFileDialogue.ShowDialog();
             string _CSRPrivateKeyLocation = _CreateCSRFileDialogue.FileName;
             if (!string.IsNullOrEmpty(_CSRPrivateKeyLocation))
@@ -616,7 +622,7 @@ namespace OpenSSLUI
             if (validInfoProvided)
             {
 
-                CreateCSRPopupWindow _CreateCSRPopuWindow = new CreateCSRPopupWindow();
+                CreateCSRPopupWindow _CreateCSRPopuWindow = new();
                 _CreateCSRPopuWindow.ShowDialog();
 
                 string _OpenSSLUIPATHEnvVar = OpenSSLENVVarProvider.GetOPENSSLUIPATHEnvVar();
@@ -642,7 +648,7 @@ namespace OpenSSLUI
                         string COMMAND_REQ = "req";
                         string _CreateCSRName = _CreateCSRCSRNameTF.Text;
                         string _CreateCSRLocation = _CreateCSRCSRLocationTF.Text;
-                        string _CreateCSRAbsoluteName = _CreateCSRLocation + "\\" +_CreateCSRName;
+                        string _CreateCSRAbsoluteName = _CreateCSRLocation + "\\" + _CreateCSRName;
                         string _CSRPrivateKeyLocation = _CreateCSRPrivateKeyLocationTF.Text;
                         string _CSRPrivateKeyPass = _CreateCSRCSRPasswordTF.Password;
                         string _CreateCSRConfigPath = Path.Combine(_OpenSSLUIPATHEnvVar, _ConfigFolderName, _ConfigFileName);
@@ -654,7 +660,7 @@ namespace OpenSSLUI
                             _InvocationParameters = COMMAND_REQ + " -passin pass:" + _CSRPrivateKeyPass + " -new -key " +
                                 _CSRPrivateKeyLocation + " -out " + _CreateCSRAbsoluteName + " -config " + _CreateCSRConfigPath;
                         }
-                        else 
+                        else
                         {
                             // RSA key does not have a password
                             _InvocationParameters = COMMAND_REQ + " -new -key " +
@@ -679,11 +685,20 @@ namespace OpenSSLUI
 
         private bool ValidateCreateCSR()
         {
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             {
-                { "CSR Name ", _CreateCSRCSRNameTF },
-                { "CSR Location ", _CreateCSRCSRLocationTF },
-                { "CSR Private Key ", _CreateCSRPrivateKeyLocationTF }
+                {
+                    "CSR Name ",
+                    _CreateCSRCSRNameTF
+                },
+                {
+                    "CSR Location ",
+                    _CreateCSRCSRLocationTF
+                },
+                {
+                    "CSR Private Key ",
+                    _CreateCSRPrivateKeyLocationTF
+                }
             };
 
             //_FieldList.Add("Private Key Password ", _CreateCSRCSRPasswordTF);
@@ -716,7 +731,10 @@ namespace OpenSSLUI
 
         private void UtilCreatePKCS12ClientCertificateLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog _UtilCreatePKCS12FileDialogue = new OpenFileDialog { InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath() };
+            OpenFileDialog _UtilCreatePKCS12FileDialogue = new()
+            {
+                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
+            };
             _ = _UtilCreatePKCS12FileDialogue.ShowDialog();
             string _UtilCreatePKCS12ClientCertLocation = _UtilCreatePKCS12FileDialogue.FileName;
             if (!string.IsNullOrEmpty(_UtilCreatePKCS12ClientCertLocation))
@@ -729,7 +747,10 @@ namespace OpenSSLUI
 
         private void UtilCreatePKCS12ClientPrivateKeyLocationTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog _UtilCreatePKCS12FileDialogue = new OpenFileDialog { InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath() };
+            OpenFileDialog _UtilCreatePKCS12FileDialogue = new()
+            {
+                InitialDirectory = OpenSSLENVVarProvider.GetCurrentDirPath()
+            };
             _ = _UtilCreatePKCS12FileDialogue.ShowDialog();
             string _UtilCreatePKCS12ClientPrivateKeyLocation = _UtilCreatePKCS12FileDialogue.FileName;
             if (!string.IsNullOrEmpty(_UtilCreatePKCS12ClientPrivateKeyLocation))
@@ -742,7 +763,10 @@ namespace OpenSSLUI
 
         private void UtilCreatePKCS12SaveInTriggerBtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog _FodlerBrowserDialogue = new FolderBrowserDialog { SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath() };
+            FolderBrowserDialog _FodlerBrowserDialogue = new()
+            {
+                SelectedPath = OpenSSLENVVarProvider.GetCurrentDirPath()
+            };
             _ = _FodlerBrowserDialogue.ShowDialog();
             _UtilCreatePKCS12SaveInTb.Text = _FodlerBrowserDialogue.SelectedPath;
             _FodlerBrowserDialogue.Dispose();
@@ -751,7 +775,7 @@ namespace OpenSSLUI
         private void UtilCreatePKCS12ExportBtn_Click(object sender, RoutedEventArgs e)
         {
             bool validInfoProvided = ValidateExportToPKCS12();
-            if (validInfoProvided) 
+            if (validInfoProvided)
             {
                 string _PKCS_EXTENSION = ".p12";
                 string _COM_PKCS12 = "pkcs12";
@@ -777,17 +801,17 @@ namespace OpenSSLUI
                     System.Windows.MessageBox.Show("OPENSSL_UI_PATH is not set , Please set the path before continue!", "Error",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else 
+                else
                 {
                     string _OpenSSLExecutableFileName = "openssl.exe";
                     string _InvocationParameters;
-                    if (!string.IsNullOrEmpty(_ClientKeyPass) && !string.IsNullOrEmpty(_PKCS12Password)) 
+                    if (!string.IsNullOrEmpty(_ClientKeyPass) && !string.IsNullOrEmpty(_PKCS12Password))
                     {
                         // client RSA key has a password and PKCS12 certificate chain also has a password
-                         _InvocationParameters = _COM_PKCS12 + " -passin pass:" + _ClientKeyPass + " -" + _COM_EXPORT + " -in " + _ClientCert + " -inkey " + _ClientPrivateKey
-                            + " -out " + _PKCS12SaveFullPath + " -passout pass:" + _PKCS12Password;
+                        _InvocationParameters = _COM_PKCS12 + " -passin pass:" + _ClientKeyPass + " -" + _COM_EXPORT + " -in " + _ClientCert + " -inkey " + _ClientPrivateKey
+                           + " -out " + _PKCS12SaveFullPath + " -passout pass:" + _PKCS12Password;
                     }
-                    else if (string.IsNullOrEmpty(_ClientKeyPass) && !string.IsNullOrEmpty(_PKCS12Password)) 
+                    else if (string.IsNullOrEmpty(_ClientKeyPass) && !string.IsNullOrEmpty(_PKCS12Password))
                     {
                         // client RSA key does not have a password and PKCS12 certificate chain also has a password
                         _InvocationParameters = _COM_PKCS12 + " -" + _COM_EXPORT + " -in " + _ClientCert + " -inkey " + _ClientPrivateKey
@@ -797,20 +821,20 @@ namespace OpenSSLUI
                     {
                         // client RSA key has a password and PKCS12 certificate chain does not have a password
                         _InvocationParameters = _COM_PKCS12 + " -passin pass:" + _ClientKeyPass + " -" + _COM_EXPORT + " -in " + _ClientCert + " -inkey " + _ClientPrivateKey
-                            + " -out " + _PKCS12SaveFullPath +" -passout pass:" + _PKCS12Password;
+                            + " -out " + _PKCS12SaveFullPath + " -passout pass:" + _PKCS12Password;
                     }
-                    else 
+                    else
                     {
                         // client RSA key does not have a password and PKCS12 certificate chain does not have a password
                         _InvocationParameters = _COM_PKCS12 + " -" + _COM_EXPORT + " -in " + _ClientCert + " -inkey " + _ClientPrivateKey
                             + " -out " + _PKCS12SaveFullPath + " -passout pass:" + _PKCS12Password;
-                    
+
                     }
 
                     string _OpenSSLExecutableFullPath = Path.Combine(_OpenSSLUIPATHEnvVar, _OpenSSLExecutableFileName);
 
                     // Start an OpenSSL process with descriptive error if not found
-                    TryOpenSSL(_OpenSSLExecutableFullPath, _InvocationParameters);                    
+                    TryOpenSSL(_OpenSSLExecutableFullPath, _InvocationParameters);
                 }
 
             }
@@ -819,12 +843,24 @@ namespace OpenSSLUI
         private bool ValidateExportToPKCS12()
         {
             OpenSSLFieldValidator.ClearErrorList();
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             {
-                { "Client Certificate Location ", _UtilCreatePKCS12ClientCertificateLocationTb },
-                { "Client Private Key Location ", _UtilCreatePKCS12ClientPrivateKeyLocationTb },
-                { "Save PKCS12 In Folder ", _UtilCreatePKCS12SaveInTb },
-                { "PKCS12 File Name ", _UtilCreatePKCS12FileNameTb }
+                {
+                    "Client Certificate Location ",
+                    _UtilCreatePKCS12ClientCertificateLocationTb
+                },
+                {
+                    "Client Private Key Location ",
+                    _UtilCreatePKCS12ClientPrivateKeyLocationTb
+                },
+                {
+                    "Save PKCS12 In Folder ",
+                    _UtilCreatePKCS12SaveInTb
+                },
+                {
+                    "PKCS12 File Name ",
+                    _UtilCreatePKCS12FileNameTb
+                }
             };
 
             //_FieldList.Add("Client Key Password  ", _UtilCreatePKCS12ClientKeyPasswordTb);

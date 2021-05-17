@@ -26,7 +26,7 @@ namespace OpenSSLUI
             // Create a config file using the infomation that user has keyed in
 
             // List of fields to validate if the user has keyed in required infomation
-            Hashtable _FieldList = new Hashtable
+            Hashtable _FieldList = new()
             // Only the common name is made mandatory...
             {
                 { "Country Name", _PopUpCreateCSRCounrtyNameTF },
@@ -62,7 +62,7 @@ namespace OpenSSLUI
                 if (!string.IsNullOrEmpty(_PopUpCreateCSREmailTF.Text))
                 {
 
-                     _ValidEmailFormat = OpenSSLFieldValidator.ValidateFormat(_PopUpCreateCSREmailTF.Text, "Email", "Email Address ");
+                    _ValidEmailFormat = OpenSSLFieldValidator.ValidateFormat(_PopUpCreateCSREmailTF.Text, "Email", "Email Address ");
                 }
 
                 if (!_ValidEmailFormat)
@@ -111,7 +111,7 @@ namespace OpenSSLUI
                         string _CommonName = "commonName=" + _PopUpCreateCSRCommonNameTF.Text;
                         string _EmailAddress = "emailAddress=" + _PopUpCreateCSREmailTF.Text;
 
-                       
+
                         if (string.IsNullOrEmpty(_PopUpCreateCSRStateTF.Text))
                         {
                             _StateProviceName = "";

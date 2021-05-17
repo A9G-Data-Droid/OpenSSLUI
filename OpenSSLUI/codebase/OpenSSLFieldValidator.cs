@@ -4,12 +4,12 @@ using System.Windows.Controls;
 
 namespace OpenSSLUI.codebase
 {
-    static class OpenSSLFieldValidator
+    internal static class OpenSSLFieldValidator
     {
-        private static readonly ArrayList _ErrorMessageCollection = new ArrayList();
+        private static readonly ArrayList _ErrorMessageCollection = new();
 
 
-        public static bool ValidateTextField(TextBox _TextBox, string _FieldName) 
+        public static bool ValidateTextField(TextBox _TextBox, string _FieldName)
         {
             string _Value = _TextBox.Text;
             if (string.IsNullOrEmpty(_Value))
@@ -17,13 +17,13 @@ namespace OpenSSLUI.codebase
                 _ErrorMessageCollection.Add(_FieldName + " value is compulsory");
                 return false;
             }
-            else 
+            else
             {
                 return true;
             }
         }
 
-        public static ArrayList GetErrorList() 
+        public static ArrayList GetErrorList()
         {
             return _ErrorMessageCollection;
         }
@@ -37,7 +37,7 @@ namespace OpenSSLUI.codebase
         {
             bool status = true;
             IDictionaryEnumerator _IDictionaryEnumerator = _TextFileds.GetEnumerator();
-            while (_IDictionaryEnumerator.MoveNext()) 
+            while (_IDictionaryEnumerator.MoveNext())
             {
                 string _Key = (string)_IDictionaryEnumerator.Key;
                 if (!_Key.Contains("Password"))
@@ -50,7 +50,7 @@ namespace OpenSSLUI.codebase
                         status = false;
                     }
                 }
-                else 
+                else
                 {
                     PasswordBox _PasswordBox = (PasswordBox)_IDictionaryEnumerator.Value;
                     string _Text = _PasswordBox.Password;
@@ -85,7 +85,7 @@ namespace OpenSSLUI.codebase
                     _ItemValidationSuccess = true;
                 }
             }
-            if (!_ItemValidationSuccess) 
+            if (!_ItemValidationSuccess)
             {
                 _ErrorMessageCollection.Add(_FieldDisplayName + " format is incorrect, please enter valid format!");
             }
