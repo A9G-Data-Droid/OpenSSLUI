@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows;
-using OpenSSLUI.codebase;
+﻿using OpenSSLUI.codebase;
+using System;
 using System.Collections;
 using System.IO;
+using System.Windows;
 
 namespace OpenSSLUI
 {
@@ -16,12 +16,12 @@ namespace OpenSSLUI
             InitializeComponent();
         }
 
-        private void _PopUpCreateCACertCancelBtn_Click(object sender, RoutedEventArgs e)
+        private void PopUpCreateCACertCancelBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void _PopUpCreateCACertOKBtn_Click(object sender, RoutedEventArgs e)
+        private void PopUpCreateCACertOKBtn_Click(object sender, RoutedEventArgs e)
         {
             // Create a config file using the infomation that user has keyed in
 
@@ -46,8 +46,8 @@ namespace OpenSSLUI
                 IEnumerator _IEnumerator = _ErrorList.GetEnumerator();
                 while (_IEnumerator.MoveNext())
                 {
-                    String _ErrorX = (String)_IEnumerator.Current;
-                    if (_ErrorX != null && !_ErrorX.Equals(string.Empty))
+                    string _ErrorX = (string)_IEnumerator.Current;
+                    if (!string.IsNullOrEmpty(_ErrorX))
                     {
                         MessageBox.Show(_ErrorX, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -58,7 +58,7 @@ namespace OpenSSLUI
                 // Validate email address format
                 OpenSSLFieldValidator.ClearErrorList();
                 bool _ValidEmailFormat = true;
-                if (!String.IsNullOrEmpty(_PopUpCreateCACertEmailTF.Text)) 
+                if (!string.IsNullOrEmpty(_PopUpCreateCACertEmailTF.Text)) 
                 {
                     _ValidEmailFormat = OpenSSLFieldValidator.ValidateFormat(_PopUpCreateCACertEmailTF.Text, "Email", "Email Address ");
                 }
@@ -69,73 +69,78 @@ namespace OpenSSLUI
                     IEnumerator _IEnumerator = _ErrorList.GetEnumerator();
                     while (_IEnumerator.MoveNext())
                     {
-                        String _ErrorX = (String)_IEnumerator.Current;
-                        if (_ErrorX != null && !_ErrorX.Equals(string.Empty))
+                        string _ErrorX = (string)_IEnumerator.Current;
+                        if (!string.IsNullOrEmpty(_ErrorX))
                         {
                             MessageBox.Show(_ErrorX, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }
                 else // Proceed the creation of config file
-                {                  
+                {
                     // Check ENV VAR 
-                    String _OpenSSLUIPATHEnvVar = OpenSSLENVVarProvider.GetOPENSSLUIPATHEnvVar();
-                    if (String.IsNullOrEmpty(_OpenSSLUIPATHEnvVar))
+                    string _OpenSSLUIPATHEnvVar = OpenSSLENVVarProvider.GetOPENSSLUIPATHEnvVar();
+                    if (string.IsNullOrEmpty(_OpenSSLUIPATHEnvVar))
                     {
                         MessageBox.Show("OPENSSL_UI_PATH is not set, please set the path before continue!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else 
                     {
-                        String _ConfigFolderName = "configFolder";
-                        String _ConfigFileName = "OpenSSLCreateCACertConfig.txt";
-                        bool _ConfigFolderExist = Directory.Exists(_OpenSSLUIPATHEnvVar + "\\" + _ConfigFolderName);
+                        string _ConfigFolderName = "configFolder";
+                        string _ConfigFileName = "OpenSSLCreateCACertConfig.txt";
+                        bool _ConfigFolderExist = Directory.Exists(Path.Combine(_OpenSSLUIPATHEnvVar, _ConfigFolderName));
                         if (!_ConfigFolderExist) 
                         {
                             // Create folder first
-                            Directory.CreateDirectory(_OpenSSLUIPATHEnvVar + "\\" + _ConfigFolderName);
+                            Directory.CreateDirectory(Path.Combine(_OpenSSLUIPATHEnvVar, _ConfigFolderName));
                         }
-                        // Create config file
-                        bool _ConfigFileExist = File.Exists(_OpenSSLUIPATHEnvVar + "\\" + _ConfigFolderName + "\\" + _ConfigFileName);
-                        if (_ConfigFileExist) 
-                        {
-                            File.Delete(_OpenSSLUIPATHEnvVar + "\\" + _ConfigFolderName + "\\" + _ConfigFileName);
-                        } 
 
-                        String _CountryName = "countryName="+_PopUpCreateCACertCounrtyNameTF.Text;
-                        String _StateProviceName = "stateOrProvinceName="+_PopUpCreateCACertStateTF.Text;
-                        String _LocationCity = "localityName="+_PopUpCreateCACertLocationTF.Text;
-                        String _OrganizationName = "organizationName="+_PopUpCreateCACertOrgNameTF.Text;
-                        String _OrganizationUnitName = "organizationalUnitName="+_PopUpCreateCACertOrgUnitTF.Text;
-                        String _CommonName = "commonName="+_PopUpCreateCACertCommonNameTF.Text;
-                        String _EmailAddress = "emailAddress="+_PopUpCreateCACertEmailTF.Text;
+                        // Create config file
+                        string configFileFullPath = Path.Combine(_OpenSSLUIPATHEnvVar, _ConfigFolderName, _ConfigFileName);
+                        if (File.Exists(configFileFullPath)) 
+                        {
+                            File.Delete(configFileFullPath);
+                        }
+
+                        string _CountryName = "countryName="+_PopUpCreateCACertCounrtyNameTF.Text;
+                        string _StateProviceName = "stateOrProvinceName="+_PopUpCreateCACertStateTF.Text;
+                        string _LocationCity = "localityName="+_PopUpCreateCACertLocationTF.Text;
+                        string _OrganizationName = "organizationName="+_PopUpCreateCACertOrgNameTF.Text;
+                        string _OrganizationUnitName = "organizationalUnitName="+_PopUpCreateCACertOrgUnitTF.Text;
+                        string _CommonName = "commonName="+_PopUpCreateCACertCommonNameTF.Text;
+                        string _EmailAddress = "emailAddress="+_PopUpCreateCACertEmailTF.Text;
 
                       
-                        if (String.IsNullOrEmpty(_PopUpCreateCACertStateTF.Text)) 
+                        if (string.IsNullOrEmpty(_PopUpCreateCACertStateTF.Text)) 
                         {
                             _StateProviceName = "";
                         }
-                        if (String.IsNullOrEmpty(_PopUpCreateCACertLocationTF.Text))
+
+                        if (string.IsNullOrEmpty(_PopUpCreateCACertLocationTF.Text))
                         {
                             _LocationCity = "";
                         }
-                        if (String.IsNullOrEmpty(_PopUpCreateCACertOrgNameTF.Text))
+
+                        if (string.IsNullOrEmpty(_PopUpCreateCACertOrgNameTF.Text))
                         {
                             _OrganizationName = "";
                         }
-                        if (String.IsNullOrEmpty(_PopUpCreateCACertOrgUnitTF.Text))
+
+                        if (string.IsNullOrEmpty(_PopUpCreateCACertOrgUnitTF.Text))
                         {
                             _OrganizationUnitName = "";
                         }
-                        if (String.IsNullOrEmpty(_PopUpCreateCACertEmailTF.Text))
+
+                        if (string.IsNullOrEmpty(_PopUpCreateCACertEmailTF.Text))
                         {
                             _EmailAddress = "";
                         }
 
-                        String[] _CreateCACertInfo = {"[ req ]","prompt=no","distinguished_name = req_distinguished_name",
+                        string[] _CreateCACertInfo = {"[ req ]","prompt=no","distinguished_name = req_distinguished_name",
                                                      "","[req_distinguished_name ]",_OrganizationName,_OrganizationUnitName,
                                                      _EmailAddress,_LocationCity,_StateProviceName,_CountryName,_CommonName};
                         //crete the file again
-                        File.WriteAllLines(_OpenSSLUIPATHEnvVar + "\\" + _ConfigFolderName + "\\" + _ConfigFileName, _CreateCACertInfo);
+                        File.WriteAllLines(configFileFullPath, _CreateCACertInfo);
                         MessageBoxResult _MessageBoxResult = MessageBox.Show("Certificate Infomation captured successfully!", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         if (_MessageBoxResult.ToString().Equals("OK", StringComparison.CurrentCultureIgnoreCase)) 

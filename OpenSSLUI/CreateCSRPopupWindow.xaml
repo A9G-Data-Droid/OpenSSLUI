@@ -17,7 +17,7 @@
         <TextBox Height="26" HorizontalAlignment="Right" Margin="0,0,51,107" Name="_PopUpCreateCSRCommonNameTF" VerticalAlignment="Bottom" Width="150" />
         <Label Height="28" Margin="10,0,212,73" Name="_PopUpCreateCSREmailLbl" VerticalAlignment="Bottom">Email address</Label>
         <TextBox Height="26" HorizontalAlignment="Right" Margin="0,0,18,73" Name="_PopUpCreateCSREmailTF" VerticalAlignment="Bottom" Width="183" />
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,126,20" Name="_PopUpCreateCSROKBtn" VerticalAlignment="Bottom" Width="75" Click="_PopUpCreateCSROKBtn_Click">OK</Button>
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,41,20" Name="_PopUpCreateCSRCancelBtn" VerticalAlignment="Bottom" Width="75" Click="_PopUpCreateCSRCancelBtn_Click">Cancel</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,126,20" Name="_PopUpCreateCSROKBtn" VerticalAlignment="Bottom" Width="75" Click="PopUpCreateCSROKBtn_Click">OK</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,41,20" Name="_PopUpCreateCSRCancelBtn" VerticalAlignment="Bottom" Width="75" Click="PopUpCreateCSRCancelBtn_Click">Cancel</Button>
     </Grid>
 </Window>
