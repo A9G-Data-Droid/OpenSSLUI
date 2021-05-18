@@ -1,7 +1,30 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OpenSSLUI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConfigFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">config</Value>
+    </Setting>
+    <Setting Name="CSRConfigFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OpenSSLCreateCSRConfig.txt</Value>
+    </Setting>
+    <Setting Name="CAConfigFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OpenSSLCreateCACertConfig.txt</Value>
+    </Setting>
+    <Setting Name="OpenSSLExecutableFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">openssl.exe</Value>
+    </Setting>
+    <Setting Name="DEFAULT_BIT_LENGTH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2048</Value>
+    </Setting>
+    <Setting Name="DEFAULT_VALIDITY_PERIOD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">365</Value>
+    </Setting>
+    <Setting Name="DEFAULT_CA_VALIDITY_PERIOD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="DEFAULT_CA_ALOGORITHM" Type="System.String" Scope="User">
+      <Value Profile="(Default)">x509</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

@@ -22,5 +22,101 @@ namespace OpenSSLUI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("config")]
+        public string ConfigFolderName {
+            get {
+                return ((string)(this["ConfigFolderName"]));
+            }
+            set {
+                this["ConfigFolderName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OpenSSLCreateCSRConfig.txt")]
+        public string CSRConfigFile {
+            get {
+                return ((string)(this["CSRConfigFile"]));
+            }
+            set {
+                this["CSRConfigFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OpenSSLCreateCACertConfig.txt")]
+        public string CAConfigFile {
+            get {
+                return ((string)(this["CAConfigFile"]));
+            }
+            set {
+                this["CAConfigFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("openssl.exe")]
+        public string OpenSSLExecutableFileName {
+            get {
+                return ((string)(this["OpenSSLExecutableFileName"]));
+            }
+            set {
+                this["OpenSSLExecutableFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2048")]
+        public string DEFAULT_BIT_LENGTH {
+            get {
+                return ((string)(this["DEFAULT_BIT_LENGTH"]));
+            }
+            set {
+                this["DEFAULT_BIT_LENGTH"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("365")]
+        public string DEFAULT_VALIDITY_PERIOD {
+            get {
+                return ((string)(this["DEFAULT_VALIDITY_PERIOD"]));
+            }
+            set {
+                this["DEFAULT_VALIDITY_PERIOD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public string DEFAULT_CA_VALIDITY_PERIOD {
+            get {
+                return ((string)(this["DEFAULT_CA_VALIDITY_PERIOD"]));
+            }
+            set {
+                this["DEFAULT_CA_VALIDITY_PERIOD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("x509")]
+        public string DEFAULT_CA_ALOGORITHM {
+            get {
+                return ((string)(this["DEFAULT_CA_ALOGORITHM"]));
+            }
+            set {
+                this["DEFAULT_CA_ALOGORITHM"] = value;
+            }
+        }
     }
 }

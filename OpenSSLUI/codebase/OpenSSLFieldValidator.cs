@@ -4,10 +4,11 @@ using System.Windows.Controls;
 
 namespace OpenSSLUI.codebase
 {
+#pragma warning disable S101 // Types should be named in PascalCase
     internal static class OpenSSLFieldValidator
+#pragma warning restore S101 // Types should be named in PascalCase
     {
         private static readonly ArrayList _ErrorMessageCollection = new();
-
 
         public static bool ValidateTextField(TextBox _TextBox, string _FieldName)
         {
@@ -61,6 +62,7 @@ namespace OpenSSLUI.codebase
                     }
                 }
             }
+
             return status;
         }
 
@@ -85,12 +87,13 @@ namespace OpenSSLUI.codebase
                     _ItemValidationSuccess = true;
                 }
             }
+
             if (!_ItemValidationSuccess)
             {
                 _ErrorMessageCollection.Add(_FieldDisplayName + " format is incorrect, please enter valid format!");
             }
+
             return _ItemValidationSuccess;
         }
-
     }
 }

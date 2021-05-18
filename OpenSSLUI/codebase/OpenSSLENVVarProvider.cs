@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
 
 namespace OpenSSLUI.codebase
 {
-    internal static class OpenSSLENVVarProvider
+#pragma warning disable S101 // Types should be named in PascalCase
+    internal static class OpenSSLEnvVarProvider
+#pragma warning restore S101 // Types should be named in PascalCase
     {
         private const string OPENSSL_UI_PATH = "OPENSSL_UI_PATH";
+        private const string OPENSSL_CONF = "OPENSSL_CONF";
 
         public static string GetCurrentDirPath()
         {
@@ -19,18 +23,22 @@ namespace OpenSSLUI.codebase
             if (string.IsNullOrEmpty(_OpenSSLUIPath))
             {
                 _OpenSSLUIPath = GetCurrentDirPath();
-                SetOPENSSLUIPATHEnvVar(_OpenSSLUIPath);
+                Environment.SetEnvironmentVariable(OPENSSL_UI_PATH, _OpenSSLUIPath);
             }
 
             return _OpenSSLUIPath;
         }
 
-        public static void SetOPENSSLUIPATHEnvVar(string newPath)
+        public static string GetOpenSSLConfEnvVar()
         {
-            if (!string.IsNullOrEmpty(newPath))
+            string _OpenSSLConfPath = Environment.GetEnvironmentVariable(OPENSSL_CONF);
+            if (string.IsNullOrEmpty(_OpenSSLConfPath))
             {
-                Environment.SetEnvironmentVariable(OPENSSL_UI_PATH, newPath);
+                _OpenSSLConfPath = Path.Combine(GetOPENSSLUIPATHEnvVar(), "openssl.cfg");
+                Environment.SetEnvironmentVariable(OPENSSL_CONF, _OpenSSLConfPath);
             }
+
+            return _OpenSSLConfPath;
         }
     }
 }
