@@ -1,6 +1,9 @@
 # OpenSSLUI 
 
-I made this github repository because this project hadn't seen an update since 2014-04-21. The version found here was compiled using Visual Studio 2019.
+I made this github repository because the original project hadn't seen an update since 2014-04-21. 
+
+### Screenshot
+![OpenSSLUI Screenshot 2021-08-04 113033](https://user-images.githubusercontent.com/26984068/128235989-164f4c8e-394f-46ec-8f4b-83cbb4d68859.jpg)
 
 ## Installation Inscructions
 
@@ -9,6 +12,10 @@ As long as the OpenSSLUI.exe is in the same directory as openssl.exe itself, it 
     1. Install OpenSSL for Windows https://wiki.openssl.org/index.php/Binaries
     2. Copy OpenSSLUI.exe in to the same directory as your OpenSSL binaries
     3. Run OpenSSLUI.exe
+
+## Compliation notes
+
+The latest release was compiled with Visual Studio 2019.
 
 ## Original Description
 
