@@ -3,9 +3,7 @@ using System.IO;
 
 namespace OpenSSLUI
 {
-#pragma warning disable S101 // Types should be named in PascalCase
     internal static class OpenSSLConfig
-#pragma warning restore S101 // Types should be named in PascalCase
     {
         public static string DEFAULT_BIT_LENGTH => Properties.Settings.Default.DEFAULT_BIT_LENGTH;
         public static string DEFAULT_VALIDITY_PERIOD => Properties.Settings.Default.DEFAULT_VALIDITY_PERIOD;

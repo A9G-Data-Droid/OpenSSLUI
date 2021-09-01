@@ -195,7 +195,7 @@
                 <TextBlock Name="_HelpTextBox" TextWrapping="Wrap" Grid.ColumnSpan="3" Margin="11,11,11,11">
                     <LineBreak/>
                     The version you are using is a fork found here:
-                    <Hyperlink NavigateUri="https://github.com/A9G-Data-Droid/OpenSSLUI" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://github.com/A9G-Data-Droid/OpenSSLUI">
                         https://github.com/A9G-Data-Droid/OpenSSLUI
                     </Hyperlink>
                     <LineBreak/>
@@ -207,14 +207,14 @@
                     <LineBreak/>
                     please email your valuable suggestions, improvements, bugs to following email address: <LineBreak/>
                     Email Address for more infomation:
-                    <Hyperlink NavigateUri="mailto:liyanaarachchiranil@gmail.com" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="mailto:liyanaarachchiranil@gmail.com">
                         <Italic>liyanaarachchiranil@gmail.com</Italic>
                     </Hyperlink>
                     
                     <LineBreak/>
                     <LineBreak/>
                     You may download this software from:
-                    <Hyperlink NavigateUri="https://sourceforge.net/projects/opensslui/" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://sourceforge.net/projects/opensslui/">
                         https://sourceforge.net/projects/opensslui/
                     </Hyperlink>
                     <LineBreak/>

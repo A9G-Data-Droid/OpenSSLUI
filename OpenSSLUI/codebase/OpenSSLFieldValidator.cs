@@ -4,9 +4,7 @@ using System.Windows.Controls;
 
 namespace OpenSSLUI.codebase
 {
-#pragma warning disable S101 // Types should be named in PascalCase
     internal static class OpenSSLFieldValidator
-#pragma warning restore S101 // Types should be named in PascalCase
     {
         private static readonly ArrayList _ErrorMessageCollection = new();
 

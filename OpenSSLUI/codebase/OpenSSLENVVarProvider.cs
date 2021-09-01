@@ -3,9 +3,7 @@ using System.IO;
 
 namespace OpenSSLUI.codebase
 {
-#pragma warning disable S101 // Types should be named in PascalCase
     internal static class OpenSSLEnvVarProvider
-#pragma warning restore S101 // Types should be named in PascalCase
     {
         private const string OPENSSL_UI_PATH = "OPENSSL_UI_PATH";
         private const string OPENSSL_CONF = "OPENSSL_CONF";
