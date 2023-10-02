@@ -26,3 +26,6 @@ This project is intended to create a free Windows based UI for command line open
 https://sourceforge.net/projects/opensslui
 
 Special thanks to LIYANA ARACHCHIGE RANIL liyanaarachchiranil@gmail.com as the original author of this codebase.
+
+## See also
+* [List of cryptography GUI tools](https://gist.github.com/stokito/eea7ee50d51e1db30122e2e33a62723e)
